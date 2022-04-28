@@ -13,7 +13,7 @@ func pipoca(done chan <- bool) {
 	
 	random := rand.Intn(max - min) + min
 
-    fmt.Println("Preparando Pipocada")
+    fmt.Println("Preparando Pipoca")
     time.Sleep(time.Duration(random) * time.Millisecond)
 
     fmt.Println("Pipoca preparada")
@@ -36,25 +36,17 @@ func refri(done chan <- bool) {
     done <- true
 }
 
-func funcionaraia(done chan <- bool) {
-    done <- true
-}
-
 func main() {
 
     donePipoca := make(chan bool)
     doneRefri := make(chan bool)
-    doneFuncionario := make(chan bool)
     
     for {
-        go funcionaraia(doneFuncionario)
-		if <-doneFuncionario == true {
-            go pipoca(donePipoca)
-            go refri(doneRefri)
-            <-donePipoca
-            <-doneRefri
-			fmt.Println("Pedido entregue")
-		}
+        go pipoca(donePipoca)
+        go refri(doneRefri)
+        <-donePipoca
+        <-doneRefri
+        fmt.Println("Pedido entregue")
         time.Sleep(1000 * time.Millisecond)
     }
 
