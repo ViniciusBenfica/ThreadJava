@@ -2,16 +2,16 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"strings"
-	"fmt"
 	"time"
 )
 
-func getFile(done chan bool, files string){
+func getFile(done chan bool, files string) {
 
-	file, err := os.Open(files+".txt")
+	file, err := os.Open(files + ".txt")
 	if err != nil {
 		log.Fatalf("Erro ao abrir o arquivo: %s", err)
 	}
@@ -27,20 +27,17 @@ func getFile(done chan bool, files string){
 		log.Fatalf("Error ao ler o arquivo: %s", err)
 	}
 
-    // file.Close()
-
 	done <- true
 }
 
 func main() {
 	doneGetFile := make(chan bool)
 
-	files := []string{"COMPUTACAO", "DIREITO"}
+	files := []string{"COMPUTACAO", "DIREITO", "DESIGN", "PUBLICIDADE"}
 
-	for i:= 0; i <= len(files)-1; i++ {
-    	go getFile(doneGetFile, files[i])
+	for i := 0; i <= len(files)-1; i++ {
+		go getFile(doneGetFile, files[i])
 	}
 
-	// fmt.Println(<-doneGetFile)
 	time.Sleep(3 * time.Second)
 }

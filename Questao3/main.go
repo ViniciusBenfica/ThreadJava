@@ -6,48 +6,48 @@ import (
 	"time"
 )
 
-func pipoca(done chan <- bool) {
+func pipoca(done chan<- bool) {
 
 	min := 1000
-    max := 10000
-	
-	random := rand.Intn(max - min) + min
+	max := 20000
 
-    fmt.Println("Preparando Pipoca")
-    time.Sleep(time.Duration(random) * time.Millisecond)
+	random := rand.Intn(max-min) + min
 
-    fmt.Println("Pipoca preparada")
+	fmt.Println("--Preparando Pipoca--")
+	time.Sleep(time.Duration(random) * time.Millisecond)
 
-    done <- true
+	fmt.Println("[Pipoca preparada]")
+
+	done <- true
 }
 
-func refri(done chan <- bool) {
+func refri(done chan<- bool) {
 
 	min := 1000
-    max := 10000
-	
-	random := rand.Intn(max - min) + min
+	max := 10000
 
-    fmt.Println("Preparando Refri")
-    time.Sleep(time.Duration(random) * time.Millisecond)
+	random := rand.Intn(max-min) + min
 
-    fmt.Println("Refri preparado")
-    
-    done <- true
+	fmt.Println("--Preparando Refri--")
+	time.Sleep(time.Duration(random) * time.Millisecond)
+
+	fmt.Println("[Refri preparado]")
+
+	done <- true
 }
 
 func main() {
 
-    donePipoca := make(chan bool)
-    doneRefri := make(chan bool)
-    
-    for {
-        go pipoca(donePipoca)
-        go refri(doneRefri)
-        <-donePipoca
-        <-doneRefri
-        fmt.Println("Pedido entregue")
-        time.Sleep(1000 * time.Millisecond)
-    }
+	donePipoca := make(chan bool)
+	doneRefri := make(chan bool)
+
+	for {
+		go pipoca(donePipoca)
+		go refri(doneRefri)
+		<-donePipoca
+		<-doneRefri
+		fmt.Println("**Pedido entregue**\n")
+		time.Sleep(1000 * time.Millisecond)
+	}
 
 }

@@ -8,9 +8,10 @@ public class App {
         Patrocinadora aPatrocinadora = new Patrocinadora(conta, aGastadora, aEsperta, aEconomica);
         
         try {
-            aGastadora.t.join();
-            aEsperta.t.join();
-            aEconomica.t.join();
+            aGastadora.join();
+            aEsperta.join();
+            aEconomica.join();
+            aPatrocinadora.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

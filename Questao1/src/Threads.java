@@ -19,14 +19,14 @@ public class Threads extends Thread {
     @Override
     public void run() {
         try {
-            while (conta.getSaldo() > 0) {
+            while (conta.getSaldo() >= 0) {
                 synchronized (this.conta) {
                     if (conta.saque(this.valor)) {
                         System.out.println("Thread " + this.name + ": R$" + conta.getSaldo() + "");
                         this.saques = this.saques + 1;
                     } else {
-                        System.out.println("PARANDO A THREAD " + this.name + "\n SAQUES " + this.saques);
-                        pausado = true;
+                        System.out.println("PARANDO A THREAD " + this.name + "\nSAQUES " + this.saques);
+                        this.pausado = true;
                         conta.wait();
                     }
                 }
@@ -35,5 +35,10 @@ public class Threads extends Thread {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+
+    public void setpausado(Boolean pausado) {
+        this.pausado = pausado;
     }
 }

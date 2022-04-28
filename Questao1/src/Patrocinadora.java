@@ -19,14 +19,13 @@ public class Patrocinadora extends Thread {
         try {
             while (true) {
                 if (thread1.pausado && thread2.pausado && thread3.pausado) {
-                    conta.deposito(1000);
-                    // System.out.println(conta.getSaldo());
+                    conta.deposito(100);
                     System.out.println("Thread Patrocinadora" + ": R$" + conta.getSaldo());
+                    thread1.setpausado(false);
+                    thread2.setpausado(false);
+                    thread3.setpausado(false);
                     synchronized (this.conta) {
                         conta.notifyAll();
-                    }
-                    synchronized (this) {
-                        wait();
                     }
                 }
                 Threads.sleep(1000);
