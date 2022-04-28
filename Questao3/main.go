@@ -9,7 +9,7 @@ import (
 func pipoca(done chan<- bool) {
 
 	min := 1000
-	max := 20000
+	max := 10000
 
 	random := rand.Intn(max-min) + min
 
