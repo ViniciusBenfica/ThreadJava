@@ -11,7 +11,7 @@ import (
 
 func getFile(done chan bool, files string) {
 
-	file, err := os.Open(files + ".txt")
+	file, err := os.Open("files/" + files + ".txt")
 	if err != nil {
 		log.Fatalf("Erro ao abrir o arquivo: %s", err)
 	}
@@ -33,7 +33,22 @@ func getFile(done chan bool, files string) {
 func main() {
 	doneGetFile := make(chan bool)
 
-	files := []string{"COMPUTACAO", "DIREITO", "DESIGN", "PUBLICIDADE"}
+	files := []string{"ADMINISTRACAO",
+					  "COMPUTACAO", 
+					  "DESIGN", 
+					  "DIREITO", 
+					  "EDUCACAO FISICA", 
+					  "ENFERMAGEM", 
+					  "ENGENHARIA", 
+					  "FOTOGRAFIA", 
+					  "JORNALISMO", 
+					  "MEDICINA", 
+					  "PSICOLOGIA", 
+					  "PUBLICIDADE", 
+					  "TURISMO", 
+					  "SI", 
+					  "MATEMATICA",
+					}
 
 	for i := 0; i <= len(files)-1; i++ {
 		go getFile(doneGetFile, files[i])
